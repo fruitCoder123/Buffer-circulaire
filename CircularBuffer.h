@@ -1,26 +1,31 @@
-#pragma once
 
 #ifndef CIRCULAR_BUFFER_HEADER
 #define CIRCULAR_BUFFER_HEADER
 
-#include <stdio.h>
+#include <stdint.h>
 
-#define CIRCULAR_BUFFER_LENGHT 32
+#define CB_LENGHT                   8          // has t be a power of 2 !!
+#define CB_STORAGE_TYPE             uint8_t
+#define CB_BOOL                     _Bool
 
-typedef struct CircularBuffer {
+#if CIRCULAR_BUFFER_LENGHT < 0xFF
+#   define CB_INDEX_TYPE            uint8_t
+#elif CIRCULAR_BUFFER_LENGHT < 0xFFFF
+#   define CB_INDEX_TYPE            uint16_t
+#else
+#   error Buffer size not supported
+#endif
 
-	int iWrite;
-	int iRead;
-	int *WritePointer;
-	int *ReadPointer;
-	int *ArrayPointer;
-	int BufferArray[CIRCULAR_BUFFER_LENGHT];
-
+typedef struct CircularBuffer
+{
+	CB_INDEX_TYPE WritePointer;
+	CB_INDEX_TYPE ReadPointer;
+	CB_STORAGE_TYPE BufferArray[CB_LENGHT];
 } CircularBuffer;
 
-_Bool circular_buffer_init(CircularBuffer BufferP, _Bool bRead);
-_Bool circular_buffer_read(CircularBuffer BufferP, int *iValeur, _Bool bRead);
-_Bool circular_buffer_write(CircularBuffer BufferP, int iValeur, _Bool bRead);
+CB_BOOL circular_buffer_init(CircularBuffer *BufferP);
+CB_BOOL circular_buffer_read(CircularBuffer *BufferP, CB_STORAGE_TYPE *value);
+CB_BOOL circular_buffer_write(CircularBuffer *BufferP, CB_STORAGE_TYPE value);
 
 #endif /*CIRCULAR_BUFFER_HEADER*/
 
