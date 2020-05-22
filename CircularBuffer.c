@@ -1,9 +1,10 @@
-#include "CircularBuffer.h"
+#include <CircularBuffer.h>
 
 CB_BOOL circular_buffer_init(CircularBuffer *BufferP)
 {
     BufferP->ReadPointer = 0;
     BufferP->WritePointer = 0;
+    BufferP->is_full = 0;
 
     //Initialize the buffer
     for (CB_INDEX_TYPE i = 0; i < CB_LENGHT; i++)

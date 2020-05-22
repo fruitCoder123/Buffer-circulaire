@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 
-#define CB_LENGHT                   32          // has t be a power of 2 !!
+#define CB_LENGHT                   8          // has t be a power of 2 !!
 #define CB_STORAGE_TYPE             uint8_t
 #define CB_BOOL                     _Bool
 
@@ -24,9 +24,9 @@ typedef struct CircularBuffer
     CB_STORAGE_TYPE BufferArray[CB_LENGHT];
 } CircularBuffer;
 
-CB_BOOL circular_buffer_init(CircularBuffer *BufferP);
-CB_BOOL circular_buffer_read(CircularBuffer *BufferP, CB_STORAGE_TYPE *value);
-CB_BOOL circular_buffer_write(CircularBuffer *BufferP, CB_STORAGE_TYPE value);
+extern CB_BOOL circular_buffer_init(CircularBuffer *BufferP);
+extern CB_BOOL circular_buffer_read(CircularBuffer *BufferP, CB_STORAGE_TYPE *value);
+extern CB_BOOL circular_buffer_write(CircularBuffer *BufferP, CB_STORAGE_TYPE value);
 
 #endif /*CIRCULAR_BUFFER_HEADER*/
 
